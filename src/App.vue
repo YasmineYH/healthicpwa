@@ -12,9 +12,31 @@
       <router-link class="sec-link main-btn" :to="{ name: 'authentication', params: { authId: 'login'}}">Log In</router-link>
       <router-link class="sec-link sec-btn" :to="{ name: 'authentication', params: { authId: 'signup'}}">Sign Up</router-link>
     </div>
+
+    <div class="mobile-nav-ctn">
+      <transition name="hamburger" mode="out-in" v-on:click="menuToggle">
+          <img src="@/assets/svgs/close.svg" alt="" v-if="menu">
+          <img src="@/assets/svgs/hamburger.svg" alt="" v-else>
+      </transition>
+
+      <transition name="nav" appear>
+        <div class="mobile-nav" v-if="menu" v-on:click="menuRemove">
+          <div class="mobile-links">
+            <router-link class="link" to="/">Home</router-link>
+            <router-link class="link" to="/scheduleappointment">Schedule an Appointment</router-link>
+            <router-link class="link" to="/ourdoctors">Our Doctors</router-link>
+          </div>
+
+          <div class="mobile-sec-links">
+            <router-link class="sec-link main-btn" :to="{ name: 'authentication', params: { authId: 'login'}}">Log In</router-link>
+            <router-link class="sec-link sec-btn" :to="{ name: 'authentication', params: { authId: 'signup'}}">Sign Up</router-link>
+          </div>
+        </div>
+      </transition>
+    </div>
   </nav>
 
-  <router-view/>
+  <router-view v-on:click="menuRemove" />
 
   <footer v-if="!route.includes('/authentication')">
     <ul>
@@ -36,15 +58,36 @@
 
 <script>
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 export default {
   name: 'App',
   setup() {
 		const route = computed(() => useRoute().path)
+    const mobile = ref()
+    const menu = ref(false)
+
+    const mobileToggle = () => {
+      mobile.value = (window.innerWidth <= 1040) ? true : false
+    }
+
+    const menuToggle = () => {
+      menu.value = !menu.value
+    }
+
+    const menuRemove = () => {
+      menu.value = false
+    }
+
+    onMounted(() => window.addEventListener('resize', mobileToggle))
 
     return {
       route,
+      mobile,
+      menu,
+      mobileToggle,
+      menuToggle,
+      menuRemove
     }
   }
 }
@@ -226,6 +269,11 @@ html {
         text-decoration: none;
         color: #000000;
         padding: 10px;
+        transition: all .3s ease-out;
+
+        &:hover {
+          transform: translateY(-3px);
+        }
       }
     }
 
@@ -240,6 +288,10 @@ html {
         height: 32px;
       }
     }
+
+    .mobile-nav-ctn {
+      display: none;
+    }
   }
 
   .main-pages {
@@ -253,25 +305,25 @@ html {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 51vw;
+    width: 51em;
     max-width: 1740px;
     margin: 125px auto 35px auto;
 
     ul {
-        list-style: none;
-        display: flex;
-        padding-top: 3px;
-        gap: 25px;
+      list-style: none;
+      display: flex;
+      padding-top: 3px;
+      gap: 25px;
 
-        img {
-            height: 23px;
-        }
+      img {
+        height: 23px;
+      }
     }
 
     .lines {
         display: flex;
         justify-content: space-between;
-        width: 16vw;
+        width: 16em;
 
         div {
             height: 1px;
@@ -296,6 +348,202 @@ html {
       font-weight: 500;
       font-size: 13px;
       text-shadow: 0 0 .2px black;
+    }
+  }
+
+  @media (min-width: 1740px) {
+    .main-pages,
+    .home-page {
+      width: 1740px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    nav { 
+      width: 1740px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 5em;
+    }
+  }
+
+  @media (max-width: 1440px) {
+    nav {
+      padding: 0 7vw;
+    }
+  }
+
+  @media (max-width: 1340px) {
+    footer {
+      width: 80vw;
+      margin: 75px auto 35px auto;
+    }
+  }
+
+  @media (max-width: 1040px) {
+    .h2-black {
+      width: 80%;
+    }
+
+    nav {
+      padding: 0 7vw;
+
+      .links, .sec-links {
+        display: none;
+      }
+
+      .mobile-nav-ctn {
+        display: block;
+        position: relative;
+
+        img {
+          height: 30px;
+        }
+
+        .hamburger-enter-from,
+        .hamburger-leave-to {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        .hamburger-enter-active,
+        .hamburger-leave-active {
+          transition: all .3s ease-out;
+        }
+
+        .mobile-nav {
+          position: absolute;
+          right: 0;
+          top: 45px;
+          padding: 25px 25px;
+          background: #333333;
+          box-shadow: inset 0px 0px 15px #000000;
+          border-radius: 8px;
+          color: #FFFFFF;
+          z-index: 1;
+
+          .mobile-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .link {
+              color: #FFFFFF;
+              text-decoration: none;
+              text-align: right;
+              padding: 10px;
+            }
+          }
+
+          .mobile-sec-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 45px;
+
+            .sec-link {
+              width: 100px;
+              height: 30px;
+              padding-bottom: 4px;
+            }
+          }
+        }
+
+        .nav-enter-from {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+
+        .nav-enter-active {
+          transition: all .5s ease-out;
+        }
+
+        .nav-leave-to {
+          opacity: 0;
+          transform: translateX(100px);
+        }
+
+        .nav-leave-active {
+          transition: all .2s ease-out;
+        }
+      }
+    }
+
+    footer {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 45px;
+      text-align: center;
+
+      .lines {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .h1 {
+      font-size: 35px;
+    }
+
+    .h2 {
+      font-size: 22px;
+    }
+
+    .h2-black {
+      font-size: 16px;
+      height: 45px;
+      padding-bottom: 5px;
+    }
+
+    .h3 {
+      font-size: 16px;
+    }
+
+    .p-bold {
+      font-size: 15px;
+      letter-spacing: -0.005em;
+      line-height: 25px;
+    }
+
+    .p-small {
+      font-size: 12px;
+      line-height: 20px;
+    }
+
+    .p-small-bold {
+      font-size: 12px;
+    }
+
+    .p {
+      font-size: 15px;
+      line-height: 28px;
+    }
+
+    .main-pages {
+      margin-top: 75px;
+    }
+
+    nav {
+      margin-top: 25px;
+
+      .mobile-nav-ctn {
+        img {
+          height: 20px;
+        }
+      }
+    }
+
+    footer {
+      gap: 15px;
+      margin: 125px auto 15px auto;
+
+      ul {
+      gap: 20px;
+
+      img {
+        height: 20px;
+      }
+    }
     }
   }
 }

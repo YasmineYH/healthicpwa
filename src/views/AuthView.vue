@@ -28,6 +28,8 @@
 
     <div class="content">
       <div class="auth-nav">
+        <img class="logobl" alt="Logo" src="@/assets/svgs/logo.svg">
+
         <div class="links">
           <router-link class="link p-bold" to="/">Home</router-link>
           <router-link class="link p-bold" to="/scheduleappointment">Schedule an Appointment</router-link>
@@ -37,6 +39,28 @@
         <div class="sec-links">
           <router-link class="sec-link main-btn" :to="{ name: 'authentication', params: { authId: 'login'}}">Log In</router-link>
           <router-link class="sec-link sec-btn" :to="{ name: 'authentication', params: { authId: 'signup'}}">Sign Up</router-link>
+        </div>
+
+        <div class="mobile-nav-ctn">
+          <transition name="hamburger" mode="out-in" v-on:click="menuToggle">
+              <img src="@/assets/svgs/close.svg" alt="" v-if="menu">
+              <img src="@/assets/svgs/hamburger.svg" alt="" v-else>
+          </transition>
+
+          <transition name="nav" appear>
+            <div class="mobile-nav" v-if="menu" v-on:click="menuRemove">
+              <div class="mobile-links">
+                <router-link class="link" to="/">Home</router-link>
+                <router-link class="link" to="/scheduleappointment">Schedule an Appointment</router-link>
+                <router-link class="link" to="/ourdoctors">Our Doctors</router-link>
+              </div>
+
+              <div class="mobile-sec-links">
+                <router-link class="sec-link main-btn" :to="{ name: 'authentication', params: { authId: 'login'}}">Log In</router-link>
+                <router-link class="sec-link sec-btn" :to="{ name: 'authentication', params: { authId: 'signup'}}">Sign Up</router-link>
+              </div>
+            </div>
+          </transition>
         </div>
       </div>
 
@@ -160,13 +184,30 @@
 
 <script>
 import { useRoute } from 'vue-router'
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 
 export default {
   name: 'AuthView',
   setup() {
 		const route = useRoute()
     const authId = ref( computed(() => route.params.authId) )
+    const mobile = ref()
+    const menu = ref(false)
+
+    const mobileToggle = () => {
+      mobile.value = (window.innerWidth <= 1040) ? true : false
+    }
+
+    const menuToggle = () => {
+      menu.value = !menu.value
+    }
+
+    const menuRemove = () => {
+      menu.value = false
+    }
+
+    onMounted(() => window.addEventListener('resize', mobileToggle))
+
 
     const firstName = ref([])
     const lastName = ref([])
@@ -178,6 +219,11 @@ export default {
 
     return {
       route,
+      mobile,
+      menu,
+      mobileToggle,
+      menuToggle,
+      menuRemove,
       firstName,
       lastName,
       patientNo,
@@ -258,6 +304,11 @@ export default {
       margin-top: 35px;
       width: 100%;
 
+      .logobl {
+        height: 20px;
+        display: none;
+      }
+
       .links {
         display: flex;
         gap: 35px;
@@ -277,6 +328,10 @@ export default {
           width: 80px;
           height: 32px;
         }
+      }
+
+      .mobile-nav-ctn {
+        display: none;
       }
     }
 
@@ -462,6 +517,252 @@ export default {
         font-weight: 500;
         font-size: 13px;
         text-shadow: 0 0 .2px black;
+      }
+    }
+  }
+}
+
+@media (min-width: 1840px) {
+  .login-page {
+    padding-right: 12em;
+
+    .side-panel {
+      width: 495px;
+      height: 100vh;
+
+      .side-panel-img{
+        width: 495px;
+      }
+
+      div {
+        padding: 0 55px 60px 55px;
+      }
+    }
+
+    .content {
+      width: calc(100% - 610px);
+
+      .auth-nav {
+        justify-content: center;
+        gap: 375px;
+      }
+
+      .form {
+        width: 60em;
+      }
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .login-page {
+    padding-right: 75px;
+
+    .content {
+      width: calc(100% - 405px);
+    }
+
+    .auth-footer {
+      .lines {
+        display: none !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 1140px) {
+  .login-page {
+    padding-right: 55px;
+
+    .side-panel {
+      padding-top: 35px;
+      width: 275px;
+
+      .side-panel-img{
+        width: 275px;
+      }
+
+      div {
+        padding: 0 15px 30px 15px;
+      }
+    }
+
+    .content {
+      width: calc(100vw - 385px);
+
+      .auth-nav {
+        justify-content: right;
+
+        .links, .sec-links {
+          display: none;
+        }
+
+        .mobile-nav-ctn {
+          display: block;
+          position: relative;
+
+          img {
+            height: 30px;
+          }
+
+          .hamburger-enter-from,
+          .hamburger-leave-to {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+
+          .hamburger-enter-active,
+          .hamburger-leave-active {
+            transition: all .3s ease-out;
+          }
+
+          .mobile-nav {
+            position: absolute;
+            right: 0;
+            top: 45px;
+            padding: 25px 25px;
+            background: #333333;
+            box-shadow: inset 0px 0px 15px #000000;
+            border-radius: 8px;
+            color: #FFFFFF;
+            z-index: 1;
+
+            .mobile-links {
+              display: flex;
+              flex-direction: column;
+              gap: 20px;
+
+              .link {
+                color: #FFFFFF;
+                text-decoration: none;
+                text-align: right;
+                padding: 10px;
+              }
+            }
+
+            .mobile-sec-links {
+              display: flex;
+              gap: 15px;
+              margin-top: 45px;
+
+              .sec-link {
+                width: 100px;
+                height: 30px;
+                padding-bottom: 4px;
+              }
+            }
+          }
+
+          .nav-enter-from {
+            opacity: 0;
+            transform: translateX(-100px);
+          }
+
+          .nav-enter-active {
+            transition: all .5s ease-out;
+          }
+
+          .nav-leave-to {
+            opacity: 0;
+            transform: translateX(100px);
+          }
+
+          .nav-leave-active {
+            transition: all .2s ease-out;
+          }
+        }
+      }
+    }
+
+    .auth-footer {
+      flex-wrap: wrap;
+      justify-content: center !important;
+      gap: 45px;
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 840px) {
+  .login-page {
+    .side-panel {
+      display: none;
+    }
+
+    .content {
+      width: calc(100% - 55px);
+      .auth-nav {
+        justify-content: space-between;
+
+        .logobl {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .login-page {
+    padding-right: 7vw;
+
+    .content {
+      width: calc(100% - 7vw);
+
+      .auth-nav {
+        margin-top: 25px;
+
+        .mobile-nav-ctn {
+          img {
+            height: 20px;
+          }
+        }
+      }
+
+      .form {
+        .title {
+         h2 {
+          margin-top: 60px;
+          font-size: 27px;
+         }
+
+         p {
+          margin-top: 5px;
+         }
+        }
+
+        form {
+          gap: 45px;
+          margin-top: 80px;
+          margin-bottom: 100px;
+
+          .form-group {
+            flex-direction: column;
+            gap: 15px;
+
+            .input-group {
+              width: 100%;
+            }
+          }
+
+          .form-details {
+            gap: 25px;
+            margin-top: 15px;
+          }
+        }
+      }
+
+      .auth-footer {
+        gap: 15px;
+        margin: 125px auto 15px auto;
+
+        ul {
+          gap: 20px;
+
+          img {
+            height: 20px;
+          }
+        }
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <section class="header">
+  <div class="home-page">
+    <header class="header">
       <img class="header-visual" alt="Header Visual" src="@/assets/images/headervisual.png">
 
       <div class="header-message">
@@ -30,7 +30,9 @@
           <a class="sec-btn" href="https://maps.app.goo.gl/7h81Ta3KXMjHjNFe9" target="_blank">Visit Us</a>
         </div>
       </div>
-    </section>
+
+      <img class="sec-header-visual" alt="Header Visual" src="@/assets/images/headerendline.png">
+    </header>
 
     <section class="about">
       <h2 class="h2">why get a healthic <br /> account today?</h2>
@@ -231,12 +233,31 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
+
 export default {
-  name: 'HomeView'
+  name: 'HomeView',
+  setup() {
+    const mobile = ref()
+    
+    const mobileToggle = () => {
+      mobile.value = (window.innerWidth <= 1040) ? true : false
+    }
+
+    onMounted(() => window.addEventListener('resize', mobileToggle))
+
+    return {
+      mobile, mobileToggle
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+section {
+  margin-bottom: 265px;
+}
+
 .header {
   position: relative;
   margin-top: 125px;
@@ -245,9 +266,13 @@ export default {
     width: 100%;
   }
 
+  .sec-header-visual {
+    display: none;
+  }
+
   .header-message {
     position: absolute;
-    left: 11.5vw;
+    left: 11.5em;
     top: 80px;
 
     .header-message-bullets {
@@ -285,21 +310,21 @@ export default {
 .about {
   position: relative;
   border: 1px solid #FFFFFF;
-  margin-bottom: 265px;
 
   h2 {
     position: absolute;
-    left: 18vw;
+    left: 28vw;
     top: 0;
     display: inline-block;
     text-align: center;
+    transform: translateX(-50%);
   }
 
   div {
     display: grid;
     place-items: center;
-    width: 1185px;
-    height: 295px;
+    width: 77vw;
+    height: 20vw;
     margin: auto;
     margin-top: 175px;
     background: #333333;
@@ -322,8 +347,6 @@ export default {
 }
 
 .how {
-  margin-bottom: 265px;
-
   .title {
     margin: auto;
     text-align: center;
@@ -397,7 +420,6 @@ export default {
   background: #333333;
   box-shadow: inset 0px 0px 15px #000000;
   color: #FFFFFF;
-  margin-bottom: 265px;
 
   .maternity-img {
     width: 390px;
@@ -470,8 +492,6 @@ export default {
 }
 
 .testimonies {
-  margin-bottom: 265px;
-
   h2 {
     margin-bottom: 165px;
     text-align: center;
@@ -537,7 +557,6 @@ export default {
   background: #333333;
   box-shadow: inset 0px 0px 15px #000000;
   color: #FFFFFF;
-  margin-bottom: 265px;
   padding-left: 11.5vw;
 
   img  {
@@ -567,10 +586,12 @@ export default {
 }
 
 .footer {
+  margin-bottom: unset;
+
   hr {
     text-align: center;
     margin: auto;
-    width: 655px;
+    width: 45%;
     background: #333333;
     outline: none;
     border: none;
@@ -582,14 +603,328 @@ export default {
   .footer-ctn {
     display: flex;
     justify-content: space-between;
-    padding: 0 16vw;
+    padding: 0 16em;
 
     .footer-item {
       display: flex;
       flex-direction: column;
       gap: 15px;
     }
+  }
+}
+
+@media (min-width: 1740px) {
+  .header {
+    .header-message {
+      left: 5em;
+    }
+  }
+
+  .about {
+    h2 {
+      left: 15em;
+    }
+
+    div {
+      width: 85em;
+      height: 19em;
+    }
+  }
+
+  .joinus {
+    padding-left: 11.5em;
+    img  {
+      width: 50em;
+    }
+  }
+}
+
+@media (max-width: 1440px) {
+  .header {
+    .header-message {
+      left: 7vw;
+    }
+  }
+
+  .maternity {
+    padding: 0 100px;
+    .maternity-img {
+      display: none;
+    }
+
+    .maternity-ctn {
+      gap: 45px;
+      width: 100%;
+
+      .maternity-cards {
+        gap: 35px;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 1340px) {
+  .header {
+    .header-visual {
+      display: none;
+    }
+
+    .sec-header-visual {
+      display: block;
+      width: 100%;
+      margin-top: -30px;
+    }
+
+    .header-message {
+      position: unset;
+      margin-left: 7vw;
+    }
+  }
+
+  .about {
+    h2 {
+      left: 32vw;
+    }
+  }
+
+  .how {
+    .how-cards {
+      img {
+        height: 35px;
+      }
+    }
+  }
+
+  .testimonies {
+    padding: 0 15vw;
+
+    h2 {
+      margin-bottom: 165px;
+      text-align: center;
+    }
+
+    .testimony-cards {
+      display: flex;
+      justify-content: center;
+      gap: 75px;
+      flex-wrap: wrap;
+    }
+  }
+
+  .footer {
+    hr {
+      width: 65%;
+      margin-bottom: 75px;
+    }
+
+    .footer-ctn {
+      padding: 0 10vw;
+    }
+  }
+}
+
+@media (max-width: 1040px) {
+  section {
+    margin-bottom: 150px;
+  }
+
+  .header {
+    margin-top: 150px;
+
+    .header-visual {
+      display: none;
+    }
+
+    .sec-header-visual {
+      display: none;
+    }
+  }
+
+  .about {
+    margin-top: 150px;
+
+    h2 {
+      display: block;
+      position: unset;
+      top: unset;
+      left: unset;
+      transform: unset;
+      margin: auto;
+    }
+
+    div {
+      height: auto;
+      padding: 45px 0;
+      margin-top: 75px;
+
+      p {
+        width: 75%;
+      }
+    }
+  }
+
+  .how {
+    .title {
+      margin-bottom: 75px;
+    }
+    .how-cards {
+      flex-direction: column;
+      gap: 50px;
+
+      img {
+        height: 35px;
+        transform: rotate(90deg);
+      }
+
+      div {
+        margin-top: 22px;
+      }
+    }
+  }
+
+  .testimonies {
+    h2 {
+      margin-bottom: 115px;
+    }
+
+    .testimony-cards {
+      gap: 105px;
+    }
+  }
+
+  .joinus {
+    padding: 35px 0;
+
+    img  {
+      display: none;
+    }
+
+    div {
+      margin: auto;
+    }
+  }
+
+  .footer {
+    hr {
+      width: 45%;
+    }
     
+    .footer-ctn {
+      gap: 45px;
+      flex-direction: column;
+    }
+
+    .footer-item {
+      text-align: center;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  section {
+    margin-bottom: 100px;
+  }
+  .header {
+    margin-top: 85px;
+
+    .header-message {
+      .header-message-bullets {
+        grid-template-columns: 2fr;
+        grid-template-rows: unset;
+        margin-top: 35px;
+
+        div {
+          margin-bottom: 25px;
+
+          img {
+            height: 20px;
+          }
+        }
+      }
+
+      .header-message-btns {
+        gap: 10px;
+
+        .main-btn, .sec-btn {
+          width: 125px;
+          height: 45px;
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .about {
+    margin-top: 100px;
+
+    div {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 35px;
+      padding: 35px 0;
+
+      p {
+        text-align: justify;
+        width: 85%;
+        font-size: 15px;
+        line-height: 25px;
+      }
+    }
+  }
+  .how {
+    .title {
+      width: 80%;
+      margin-bottom: 45px;
+    }
+  }
+
+  .maternity {
+    padding: 0 7vw;
+
+    .maternity-ctn {
+      padding: 25px 0 25px 0;
+      gap: 65px;
+
+      .maternity-title {
+        width: 100%;
+        text-align: center;
+
+        div {
+          justify-content: center;
+        }
+      }
+
+      .maternity-cards {
+        justify-content: center;
+
+        div {
+          height: auto;
+        }
+      }
+    }
+  }
+
+  .testimonies {
+    h2 {
+      margin-bottom: 85px;
+    }
+
+    .testimony-cards {
+      gap: 85px;
+    }
+  }
+
+  .joinus {
+    div {
+      width: 85%;
+    }
+  }
+
+  .footer {
+    hr {
+      width: 65%;
+      margin-bottom: 45px;
+    }
   }
 }
 </style>

@@ -28,4 +28,22 @@ export default {
     gap: 140px;
     margin-top: 185px;
 }
+
+@media (max-width: 1240px) {
+  .doctor-cards {
+    width: 80%;
+    gap: 75px;
+    margin-top: 145px;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 1240px) {
+  .doctor-cards {
+    width: 80%;
+    gap: 95px;
+    margin-top: 105px;
+  }
+
+}
 </style>
