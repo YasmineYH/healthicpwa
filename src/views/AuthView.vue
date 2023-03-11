@@ -150,7 +150,7 @@
               <input type="text" name="patient_no" v-model="patientNo">
             </div>
             <div class="input-group">
-              <label class="p-bold" for="password">Create a Password</label>
+              <label class="p-bold" for="password">Password</label>
               <input type="password" name="password" v-model="password">
             </div>
           </div>
@@ -530,7 +530,7 @@ export default {
       width: 495px;
       height: 100vh;
 
-      .side-panel-img{
+      .side-panel-img {
         width: 495px;
       }
 
