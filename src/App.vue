@@ -393,11 +393,12 @@ html {
       }
 
       .mobile-nav-ctn {
-        display: block;
+        display: flex;
         position: relative;
+        cursor: pointer;
 
         img {
-          height: 30px;
+          height: 25px;
         }
 
         .hamburger-enter-from,
@@ -421,6 +422,7 @@ html {
           border-radius: 8px;
           color: #FFFFFF;
           z-index: 1;
+
 
           .mobile-links {
             display: flex;
@@ -535,15 +537,19 @@ html {
 
     footer {
       gap: 15px;
-      margin: 125px auto 15px auto;
+      margin: 50px auto 15px auto;
 
       ul {
-      gap: 20px;
+        gap: 20px;
 
-      img {
-        height: 20px;
+        img {
+          height: 20px;
+        }
       }
-    }
+
+      p {
+        font-size: 11px;
+      }
     }
   }
 }

@@ -754,7 +754,7 @@ export default {
 
       .auth-footer {
         gap: 15px;
-        margin: 125px auto 15px auto;
+        margin: 75px auto 15px auto;
 
         ul {
           gap: 20px;
@@ -762,6 +762,10 @@ export default {
           img {
             height: 20px;
           }
+        }
+
+        p {
+          font-size: 11px;
         }
       }
     }

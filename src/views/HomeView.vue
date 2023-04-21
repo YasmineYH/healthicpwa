@@ -826,7 +826,7 @@ section {
     margin-bottom: 100px;
   }
   .header {
-    margin-top: 105px;
+    margin-top: 120px;
 
     .header-message {
       .header-message-bullets {
@@ -858,8 +858,7 @@ section {
     margin-top: 100px;
 
     div {
-      width: 100%;
-      border-radius: 0;
+      width: 85%;
       margin-top: 35px;
       padding: 35px 0;
 
