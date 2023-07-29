@@ -484,7 +484,7 @@ html {
 
   @media (max-width: 640px) {
     .h1 {
-      font-size: 35px;
+      font-size: 30px;
     }
 
     .h2 {

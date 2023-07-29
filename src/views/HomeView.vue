@@ -32,6 +32,7 @@
       </div>
 
       <img class="sec-header-visual" alt="Header Visual" src="@/assets/images/headerendline.png">
+      <img class="ter-header-visual" alt="Header Visual" src="@/assets/images/phoneheaderendline.png">
     </header>
 
     <section class="about">
@@ -267,6 +268,10 @@ section {
   }
 
   .sec-header-visual {
+    display: none;
+  }
+
+  .ter-header-visual {
     display: none;
   }
 
@@ -739,18 +744,20 @@ section {
     .sec-header-visual {
       display: none;
     }
+
+    .ter-header-visual {
+      display: block;
+      width: 100%;
+      margin-top: -0px;
+    }
   }
 
   .about {
-    margin-top: 150px;
+    margin-top: 80px;
 
     h2 {
-      display: block;
-      position: unset;
-      top: unset;
-      left: unset;
-      transform: unset;
-      margin: auto;
+      left: 37vw;
+      top: -90px;
     }
 
     div {
@@ -832,7 +839,7 @@ section {
       .header-message-bullets {
         grid-template-columns: 2fr;
         grid-template-rows: unset;
-        margin-top: 35px;
+        margin-top: 25px;
 
         div {
           margin-bottom: 25px;
@@ -855,11 +862,11 @@ section {
     }
   }
   .about {
-    margin-top: 100px;
+    margin-top: 80px;
 
     div {
       width: 85%;
-      margin-top: 35px;
+      margin-top: 25px;
       padding: 35px 0;
 
       p {

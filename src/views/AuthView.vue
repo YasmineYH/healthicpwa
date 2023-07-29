@@ -722,7 +722,7 @@ export default {
       .form {
         .title {
          h2 {
-          margin-top: 60px;
+          margin-top: 75px;
           font-size: 27px;
          }
 
@@ -732,7 +732,7 @@ export default {
         }
 
         form {
-          gap: 45px;
+          gap: 50px;
           margin-top: 80px;
           margin-bottom: 100px;
 
@@ -755,6 +755,7 @@ export default {
       .auth-footer {
         gap: 15px;
         margin: 75px auto 15px auto;
+        width: 85%;
 
         ul {
           gap: 20px;
